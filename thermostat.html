@@ -2,19 +2,82 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="jasmine/jasmine-standalone-2.5.2/src/thermostat.js"></script>
     <script src="https://use.fontawesome.com/c04e456713.js"></script>
+    <script src="jasmine/jasmine-standalone-2.5.2/lib/jquery-3.1.1.min.js"></script>
+    <script src="jasmine/jasmine-standalone-2.5.2/lib/underscore.js"></script>
+    <script src="jasmine/jasmine-standalone-2.5.2/src/thermostat.js"></script>
+    <link rel="stylesheet" href="assets/knobKnob/knobKnob.css" />
+    <link rel="stylesheet" href="assets/thermostat.css" />
+		<script src="assets/knobKnob/transform.js"></script>
+		<script src="assets/knobKnob/knobKnob.jquery.js"></script>
+    <script>
+      thermostat = new Thermostat();
+      function changeTemp(){
+        if (thermostat.isLow()) {
+          $("#light").css({"background-image":"-webkit-radial-gradient(45px 45px, circle cover, green, yellow)"});
+        } else if (thermostat.isHigh()) {
+          $("#light").css({"background-image":"-webkit-radial-gradient(45px 45px, circle cover, red, yellow)"});
+        } else {
+          $("#light").css({"background-image":"-webkit-radial-gradient(45px 45px, circle cover, yellow, orange)"});
+        }
+        document.getElementById("temp").innerHTML = thermostat.temp();
+      }
+    </script>
+    <script src="assets/knobKnob/script.js"></script>
     <title>Thermostat</title>
   </head>
+
   <body>
     <h1> Thermostat </h1>
-    <h2> Temperature is at X </h2>
-    <h3> PowerMode is X </h3>
-    <div class="light"></div>
-    <button id="increase"><i class="fa fa-arrow-circle-up fa-5x" aria-hidden="true"></i></button>
-    <button id="decrease"><i class="fa fa-arrow-circle-down fa-5x" aria-hidden="true"></i></button>
+    <h2> <i class="fa fa-thermometer-three-quarters" aria-hidden="true"></i> <span id="temp"></span> <div id="light"></div></h2>
+    <h3> PowerMode is <span id="mode">on</span> </h3>
+
+    <section id="main">
+
+			<div id="bars">
+				<div id="control">
+					<!-- The knob markup will go here -->
+				</div>
+                                <!-- The colorful dividers will go here -->
+			</div>
+		</section>
     <button id="reset"><i class="fa fa-refresh fa-5x" aria-hidden="true"></i></button>
-    <button id="changeMode"><i class="fa fa-envira fa-5x" aria-hidden="true"></i><i class="fa fa-industry fa-5x" aria-hidden="true"></i>
-</button>
+    <button id="change_mode"><i class="fa fa-envira fa-5x" aria-hidden="true"></i></button>
   </body>
+  <script>
+    window.onload = function (){
+        document.getElementById("temp").innerHTML = thermostat.temp();
+    }
+
+    $( document ).ready(function() {
+
+      $( "#increase" ).click(function( event ) {
+        thermostat.increaseTemp();
+        changeTemp();
+      });
+
+      $( "#decrease" ).click(function( event ) {
+        thermostat.decreaseTemp();
+        changeTemp();
+      });
+
+      $( "#reset" ).click(function( event ) {
+        thermostat.resetTemp();
+        changeTemp();
+      });
+
+      $( "#change_mode" ).click(function( event ) {
+        thermostat.changePowerSaving();
+        if (thermostat.isPowerSaving()) {
+          document.getElementById("mode").innerHTML = "on"
+          document.getElementById("change_mode").innerHTML = '<i class="fa fa-envira fa-5x" aria-hidden="true"></i>'
+        } else {
+          document.getElementById("mode").innerHTML = "off"
+          document.getElementById("change_mode").innerHTML = '<i class="fa fa-industry fa-5x" aria-hidden="true"></i>'
+        }
+      });
+
+
+    });
+  </script>
 </html>

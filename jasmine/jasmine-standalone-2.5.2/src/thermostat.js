@@ -1,7 +1,7 @@
 "use strict";
 
 function Thermostat(){
-  this.temperature = 20;
+  this.temperature = 19;
   this.savingMode = true;
 };
 
@@ -25,7 +25,7 @@ Thermostat.prototype.decreaseTemp = function () {
 };
 
 Thermostat.prototype.changePowerSaving = function() {
-  this.isPowerSaving ? (this.savingMode = false) : (this.savingMode = true);
+  this.isPowerSaving() ? (this.savingMode = false) : (this.savingMode = true);
 };
 
 Thermostat.prototype.minimumTemp = function () {
