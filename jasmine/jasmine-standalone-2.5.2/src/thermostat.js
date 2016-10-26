@@ -10,3 +10,8 @@ Thermostat.prototype.temp = function () {
 Thermostat.prototype.increase_temp = function () {
   this.temperature += 1;
 };
+
+Thermostat.prototype.decrease_temp = function () {
+  if (this.temperature === 10) throw "Thermostat has reached minimum temperature";
+  this.temperature -= 1;
+};
