@@ -36,3 +36,19 @@ Thermostat.prototype.maxTemp = function () {
   if (this.isPowerSaving() && this.temp() === 25) throw "Thermostat has reached maximum temperature (power saving on)";
   if (this.isPowerSaving() === false && this.temp() === 32) throw "Thermostat has reached maximum temperature (power saving off)";
 };
+
+Thermostat.prototype.resetTemp = function (){
+  this.temperature = 20;
+};
+
+Thermostat.prototype.isLow = function (){
+  return (this.temp() < 18);
+};
+
+Thermostat.prototype.isMedium = function (){
+  return (!this.isLow() && this.temp() < 25);
+};
+
+Thermostat.prototype.isHigh = function (){
+  return (this.temp() > 25);
+};
