@@ -10,19 +10,7 @@
     <link rel="stylesheet" href="assets/thermostat.css" />
 		<script src="lib/knobKnob/transform.js"></script>
 		<script src="lib/knobKnob/knobKnob.jquery.js"></script>
-    <script>
-      thermostat = new Thermostat();
-      function changeTemp(){
-        if (thermostat.isLow()) {
-          $("#light").css({"background-image":"-webkit-radial-gradient(45px 45px, circle cover, green, yellow)"});
-        } else if (thermostat.isHigh()) {
-          $("#light").css({"background-image":"-webkit-radial-gradient(45px 45px, circle cover, red, yellow)"});
-        } else {
-          $("#light").css({"background-image":"-webkit-radial-gradient(45px 45px, circle cover, yellow, orange)"});
-        }
-        document.getElementById("temp").innerHTML = thermostat.temp();
-      }
-    </script>
+    <script src="src/ui.js"></script>
     <script src="lib/knobKnob/script.js"></script>
     <title>Thermostat</title>
   </head>
@@ -43,41 +31,11 @@
 		</section>
     <button id="reset"><i class="fa fa-refresh fa-5x" aria-hidden="true"></i></button>
     <button id="change_mode"><i class="fa fa-envira fa-5x" aria-hidden="true"></i></button>
+    <form action="">
+      Check weather near you by enetering your postcode:
+      <input type="search" name="zip" placeholder="EH16LT">
+      <input type="button" value="submit" id="submit">
+    </form>
+    <p id="city_temperature"></p>
   </body>
-  <script>
-    window.onload = function (){
-        document.getElementById("temp").innerHTML = thermostat.temp();
-    }
-
-    $( document ).ready(function() {
-
-      $( "#increase" ).click(function( event ) {
-        thermostat.increaseTemp();
-        changeTemp();
-      });
-
-      $( "#decrease" ).click(function( event ) {
-        thermostat.decreaseTemp();
-        changeTemp();
-      });
-
-      $( "#reset" ).click(function( event ) {
-        thermostat.resetTemp();
-        changeTemp();
-      });
-
-      $( "#change_mode" ).click(function( event ) {
-        thermostat.changePowerSaving();
-        if (thermostat.isPowerSaving()) {
-          document.getElementById("mode").innerHTML = "on"
-          document.getElementById("change_mode").innerHTML = '<i class="fa fa-envira fa-5x" aria-hidden="true"></i>'
-        } else {
-          document.getElementById("mode").innerHTML = "off"
-          document.getElementById("change_mode").innerHTML = '<i class="fa fa-industry fa-5x" aria-hidden="true"></i>'
-        }
-      });
-
-
-    });
-  </script>
 </html>
