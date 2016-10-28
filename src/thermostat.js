@@ -1,7 +1,7 @@
 "use strict";
 
 function Thermostat(){
-  this.temperature = 19;
+  this.temperature = 20;
   this.savingMode = true;
 };
 
